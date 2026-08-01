@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Secrets
+.env
+
+# Generated artifacts
+# Discourse content is login-only: never commit it. Rebuild locally with
+# `vta scrape discourse` (needs DISCOURSE_COOKIE).
+data/raw/discourse/
+data/raw/discourse_posts.json
+data/corpus/discourse/
+# embedding cache (sqlite) and evaluation runs
+.cache/
+runs/
+*.db
+promptfoo-output/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
