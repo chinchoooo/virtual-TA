@@ -1,0 +1,120 @@
+# Evaluation set for `vta eval`.
+#
+# Fields per case:
+#   id             unique, stable identifier (results are joined on it across runs)
+#   question       the student question
+#   expected_docs  corpus doc ids that answer it ("<source>/<file stem>"); drives
+#                  hit@k / recall@k / MRR. Leave empty for unanswerable questions.
+#   rubric         criteria checked by the LLM judge, each scored pass/fail
+#   image          optional image path, relative to this file
+#   term           term the question was asked in ("2025-01"); used when the config sets
+#                  term_filter: true
+#   tags           free-form labels for slicing results
+#
+# The first three cases come from the official TDS sample promptfoo suite; the rest were
+# written against specific corpus documents. Grow this set as you find failure cases.
+
+cases:
+  - id: ga4-bonus-dashboard
+    question: If a student scores 10/10 on GA4 as well as a bonus, how would it appear on the dashboard?
+    expected_docs:
+      - discourse/2025-01/ga4-bonus-marks-170309
+      - discourse/2025-01/ga4-data-sourcing-discussion-thread-tds-jan-2025-165959
+    rubric:
+      - Mentions the dashboard showing "110"
+    term: "2025-01"
+    tags: [official-sample, discourse, grading]
+
+  - id: docker-vs-podman
+    question: I know Docker but have not used Podman before. Should I use Docker for this course?
+    expected_docs: [course/2025-01/docker]
+    rubric:
+      - Recommends Podman for the course
+      - Mentions that Docker is acceptable
+    term: "2025-01"
+    tags: [official-sample, course, tooling]
+
+  # Unanswerable only from the Jan 2025 term's point of view: the corpus now contains
+  # Sep 2025 content, so expect this to fail without term_filter. That is the point.
+  - id: unknown-future-exam
+    question: When is the TDS Sep 2025 end-term exam?
+    rubric:
+      - Says it doesn't know (since this information is not available yet)
+    term: "2025-01"
+    tags: [official-sample, unanswerable]
+
+  - id: mit-license-filename
+    question: What should the MIT license file in my project repository be named?
+    expected_docs: [discourse/2025-01/project-1-discrepancy-regarding-mit-license-171485]
+    rubric:
+      - Says the file should be named LICENSE (or LICENSE.md), in capitals
+    term: "2025-01"
+    tags: [discourse, project]
+
+  - id: dockerfile-lowercase
+    question: My Dockerfile is saved as 'dockerfile' in lowercase. Will the Project 1 evaluator detect it?
+    expected_docs:
+      - discourse/2025-01/important-dockerfile-submitted-as-dockerfile-rest-everything-is-working-fine-167415
+    rubric:
+      - Says the file must be named "Dockerfile" with a capital D
+    term: "2025-01"
+    tags: [discourse, project]
+
+  - id: datagen-sudo
+    question: Running datagen.py tries to create the data folder in root and fails with a permission error. Do I need sudo?
+    expected_docs: [discourse/2025-01/sudo-permission-needed-to-create-data-folder-in-root-167072]
+    rubric:
+      - Explains that datagen.py is meant to run inside the Docker container
+    term: "2025-01"
+    tags: [discourse, project]
+
+  - id: roe-date
+    question: When was the Remote Online Exam (ROE) for TDS Jan 2025 scheduled?
+    expected_docs: [discourse/2025-01/remote-online-exam-tds-jan-2025-168832]
+    rubric:
+      - States Sunday 2 March 2025 at 1:00 pm
+    term: "2025-01"
+    tags: [discourse, exams]
+
+  - id: uv-python-version
+    question: How do I run a Python script with a specific Python version using uv?
+    expected_docs: [course/2025-01/uv]
+    rubric:
+      - Shows a command like `uv run --python 3.11 script.py`
+    term: "2025-01"
+    tags: [course, tooling]
+
+  - id: marimo-vs-jupyter
+    question: How is Marimo different from Jupyter notebooks?
+    expected_docs: [course/2025-01/marimo]
+    rubric:
+      - Mentions that Marimo cells run reactively, updating dependent cells automatically
+    term: "2025-01"
+    tags: [course, tooling]
+
+  - id: fastapi-minimal
+    question: What does a minimal FastAPI app look like and how do I run it?
+    expected_docs: [course/2025-01/fastapi]
+    rubric:
+      - Shows creating a FastAPI() app with a route decorator
+    term: "2025-01"
+    tags: [course, tooling]
+
+  - id: endterm-without-assignments
+    question: Can I still take the end-term exam if I missed submitting assignments because of an emergency?
+    expected_docs:
+      - discourse/2025-01/can-i-take-the-end-term-exam-without-submitting-assignments-if-i-missed-it-due-t-161072
+    term: "2025-01"
+    tags: [discourse, exams]
+
+  - id: passing-criteria
+    question: What is the passing criteria for TDS in the January 2025 term?
+    expected_docs: [discourse/2025-01/clarification-on-passing-criteria-for-tds-january-2025-term-169807]
+    term: "2025-01"
+    tags: [discourse, grading]
+
+  - id: expose-local-server
+    question: How can I expose an API running on my laptop to the internet for testing?
+    expected_docs: [course/2025-01/ngrok]
+    term: "2025-01"
+    tags: [course, tooling]
