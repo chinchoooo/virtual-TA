@@ -1,0 +1,32 @@
+# Default configuration served by the API (`vta serve`, Docker image).
+name: baseline
+description: Paragraph chunks (300 words), dense retrieval, gpt-4o-mini answers.
+
+corpus:
+  sources: [course, discourse]
+
+chunker:
+  name: paragraph
+  params: {max_words: 300}
+
+embedder:
+  name: openai
+  params: {model: text-embedding-3-small}
+
+retriever:
+  name: dense
+
+query_transform:
+  name: identity
+
+reranker:
+  name: none
+
+generator:
+  name: llm
+  params: {model: gpt-4o-mini, temperature: 0.0}
+
+top_k: 5
+candidate_k: 20
+max_links: 3
+image_model: gpt-4o-mini
