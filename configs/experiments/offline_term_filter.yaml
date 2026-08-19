@@ -1,0 +1,9 @@
+# `offline` with retrieval restricted to each question's term. No API calls.
+name: offline_term_filter
+description: Hashing embeddings + BM25 hybrid, term-filtered, no generation.
+chunker: {name: markdown, params: {max_words: 250}}
+embedder: {name: hashing, params: {dim: 2048}}
+retriever: {name: hybrid}
+generator: {name: retrieval_only}
+image_model: null
+term_filter: true

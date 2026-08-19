@@ -1,0 +1,9 @@
+# Same as `hybrid`, but questions that carry a term (eval case `term`, API `term`) only
+# retrieve from that term. Compare against `hybrid` to measure cross-term confusion.
+name: hybrid_term_filter
+description: Hybrid retrieval restricted to the question's term.
+chunker: {name: markdown, params: {max_words: 250}}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: hybrid}
+generator: {name: llm, params: {model: gpt-4o-mini}}
+term_filter: true

@@ -1,0 +1,8 @@
+# Adds FAQ summaries of recorded live sessions to the corpus.
+name: hybrid_live_sessions
+description: Hybrid retrieval over course + discourse + live-session notes.
+corpus: {sources: [course, discourse, live_sessions]}
+chunker: {name: markdown, params: {max_words: 250}}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: hybrid}
+generator: {name: llm, params: {model: gpt-4o-mini}}

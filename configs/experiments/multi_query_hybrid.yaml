@@ -1,0 +1,7 @@
+name: multi_query_hybrid
+description: LLM-generated query variants, each run through hybrid retrieval and RRF-fused.
+chunker: {name: markdown, params: {max_words: 250}}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: hybrid}
+query_transform: {name: multi_query, params: {n: 3}}
+generator: {name: llm, params: {model: gpt-4o-mini}}
