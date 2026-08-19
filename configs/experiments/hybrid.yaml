@@ -1,0 +1,6 @@
+name: hybrid
+description: Markdown chunks, dense + BM25 fused with reciprocal rank fusion.
+chunker: {name: markdown, params: {max_words: 250}}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: hybrid, params: {dense_weight: 1.0, sparse_weight: 1.0, rrf_k: 60}}
+generator: {name: llm, params: {model: gpt-4o-mini}}

@@ -1,0 +1,8 @@
+# Runs with no API key at all: handy for smoke tests and pipeline debugging.
+name: offline
+description: Hashing embeddings + BM25 hybrid, no generation.
+chunker: {name: markdown, params: {max_words: 250}}
+embedder: {name: hashing, params: {dim: 2048}}
+retriever: {name: hybrid}
+generator: {name: retrieval_only}
+image_model: null

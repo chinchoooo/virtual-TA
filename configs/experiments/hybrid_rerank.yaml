@@ -1,0 +1,9 @@
+name: hybrid_rerank
+description: Hybrid retrieval of 20 candidates, LLM listwise rerank down to 5.
+chunker: {name: markdown, params: {max_words: 250}}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: hybrid}
+reranker: {name: llm, params: {model: gpt-4o-mini}}
+generator: {name: llm, params: {model: gpt-4o-mini}}
+candidate_k: 20
+top_k: 5

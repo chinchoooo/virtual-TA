@@ -1,0 +1,8 @@
+# Reproduces the original prototype's retrieval: one embedding per whole document.
+name: v0_document_dense
+description: Whole-document embeddings, dense retrieval (original approach).
+chunker: {name: document}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: dense}
+generator: {name: llm, params: {model: gpt-4o-mini}}
+top_k: 3

@@ -1,0 +1,6 @@
+name: window_dense
+description: 200-word sliding windows with 50-word overlap, dense retrieval.
+chunker: {name: sliding_window, params: {window: 200, overlap: 50}}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: dense}
+generator: {name: llm, params: {model: gpt-4o-mini}}

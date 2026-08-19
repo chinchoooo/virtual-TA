@@ -1,0 +1,7 @@
+# Structure-aware chunking: split on headings / Discourse post separators.
+name: markdown_dense
+description: Markdown-section chunks, dense retrieval.
+chunker: {name: markdown, params: {max_words: 250, min_words: 20}}
+embedder: {name: openai, params: {model: text-embedding-3-small}}
+retriever: {name: dense}
+generator: {name: llm, params: {model: gpt-4o-mini}}

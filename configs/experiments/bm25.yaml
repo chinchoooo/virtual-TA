@@ -1,0 +1,7 @@
+# Pure lexical baseline: no embedding API calls for retrieval.
+name: bm25
+description: Paragraph chunks with BM25.
+chunker: {name: paragraph, params: {max_words: 300}}
+embedder: {name: hashing}
+retriever: {name: bm25, params: {k1: 1.5, b: 0.75}}
+generator: {name: llm, params: {model: gpt-4o-mini}}
