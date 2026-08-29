@@ -16,7 +16,7 @@ from pathlib import Path
 import yaml
 from tqdm import tqdm
 
-from .config import ExperimentConfig
+from .config import Component, ExperimentConfig
 from .llm import OpenAICompatClient
 from .pipeline import RAGPipeline
 from .settings import Settings
@@ -129,6 +129,8 @@ def run_eval(
 ) -> dict:
     settings = settings or Settings.from_env()
     cases = load_dataset(dataset_path)
+    if retrieval_only:  # never build (or pay for) a generator we will not call
+        config = config.model_copy(update={"generator": Component(name="retrieval_only")})
     pipeline = RAGPipeline.from_config(config, settings, progress=True)
     judge = Judge(settings, judge_model) if judge_model and not retrieval_only else None
     k = config.top_k

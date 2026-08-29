@@ -4,7 +4,7 @@ import yaml
 from fastapi.testclient import TestClient
 
 from virtual_ta.api import create_app
-from virtual_ta.config import ExperimentConfig
+from virtual_ta.config import Component, ExperimentConfig
 from virtual_ta.documents import load_corpus
 from virtual_ta.evaluation import load_dataset, run_eval
 from virtual_ta.pipeline import RAGPipeline
@@ -82,3 +82,12 @@ def test_shipped_configs_and_dataset_are_valid():
     expected = {doc for c in cases for doc in c.expected_docs if doc.split("/")[0] in sources}
     missing = expected - corpus_ids
     assert not missing, f"dataset references unknown docs: {missing}"
+
+
+def test_retrieval_only_eval_never_builds_llm_generator(settings, offline_config, tmp_path):
+    dataset = tmp_path / "ds.yaml"
+    dataset.write_text(yaml.safe_dump({"cases": [{"id": "a", "question": "uv"}]}))
+    config = offline_config.model_copy(update={"generator": Component(name="llm")})
+    # settings has no API key: building the llm generator would raise
+    summary = run_eval(config, dataset, settings, retrieval_only=True)
+    assert summary["n_errors"] == 0
