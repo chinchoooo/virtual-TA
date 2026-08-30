@@ -310,6 +310,11 @@ eval/             labelled dataset + promptfoo suite
 tests/            offline test suite
 ```
 
+## Status and roadmap
+
+Current results, a log of what has changed, and the prioritised upgrade plan are in
+[docs/ROADMAP.md](docs/ROADMAP.md).
+
 ## Development
 
 ```bash
